@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢你关注 Dual Agent Project Initializer。
+感谢你关注 Dual Agents Workflow。
 
 ## 开发环境
 
@@ -16,10 +16,10 @@ python scripts/compile_release.py
 模板文件位于：
 
 ```text
-src/dual_agent_initializer/templates/
+src/dual_agents_workflow/templates/
 ```
 
-不要直接修改生成的 `dist/init-agent-project.py`。它由以下命令生成：
+不要直接修改生成的 `dist/dual-agents-workflow.py`。它由以下命令生成：
 
 ```bash
 python scripts/compile_release.py

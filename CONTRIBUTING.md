@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in Dual Agent Project Initializer.
+Thank you for your interest in Dual Agents Workflow.
 
 ## Development setup
 
@@ -16,10 +16,10 @@ python scripts/compile_release.py
 Edit real template files under:
 
 ```text
-src/dual_agent_initializer/templates/
+src/dual_agents_workflow/templates/
 ```
 
-Do not edit generated `dist/init-agent-project.py` directly. It is produced by:
+Do not edit generated `dist/dual-agents-workflow.py` directly. It is produced by:
 
 ```bash
 python scripts/compile_release.py

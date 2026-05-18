@@ -3,14 +3,14 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dual-agent-project-initializer"
-version = "0.2.0"
-description = "A cross-platform initializer for a dual AI coding-agent workflow."
+name = "dual-agents-workflow"
+version = "0.3.0"
+description = "A cross-platform workflow installer for new and existing dual AI coding-agent projects."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Dual Agent Project Initializer Contributors" }]
-keywords = ["ai", "coding-agent", "codex", "claude-code", "workflow", "scaffold"]
+authors = [{ name = "Dual Agents Workflow Contributors" }]
+keywords = ["ai", "coding-agent", "codex", "claude-code", "workflow", "scaffold", "adoption"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
@@ -18,7 +18,8 @@ classifiers = [
 ]
 
 [project.scripts]
-init-agent-project = "dual_agent_initializer.cli:main"
+dual-agents-workflow = "dual_agents_workflow.cli:main"
+init-agent-project = "dual_agents_workflow.cli:main"
 
 [project.optional-dependencies]
 dev = [
@@ -30,7 +31,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-dual_agent_initializer = ["templates/**/*"]
+dual_agents_workflow = ["templates/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

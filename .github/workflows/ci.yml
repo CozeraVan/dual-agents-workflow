@@ -38,4 +38,4 @@ jobs:
         run: python scripts/compile_release.py
 
       - name: Smoke test standalone release script
-        run: python dist/init-agent-project.py .ci-smoke-project --no-git-commit
+        run: python dist/dual-agents-workflow.py .ci-smoke-project --no-git-commit

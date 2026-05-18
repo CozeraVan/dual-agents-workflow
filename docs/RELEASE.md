@@ -23,7 +23,7 @@ python scripts/compile_release.py
 4. Smoke test the release script:
 
 ```bash
-python dist/init-agent-project.py /tmp/dual-agent-smoke --no-git-commit
+python dist/dual-agents-workflow.py /tmp/dual-agent-smoke --no-git-commit
 ```
 
 5. Verify docs:
@@ -37,6 +37,6 @@ python dist/init-agent-project.py /tmp/dual-agent-smoke --no-git-commit
 6. Tag release:
 
 ```bash
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.3.0
+git push origin v0.3.0
 ```

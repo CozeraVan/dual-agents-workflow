@@ -1,10 +1,17 @@
-# Dual Agent Project Initializer / 双 Coding Agents 协作项目初始化器
+# Dual Agents Workflow / 双 Coding Agents 协作工作流
 
 [English](README.md) | [架构说明](docs/ARCHITECTURE.md) | [贡献指南](CONTRIBUTING.zh-CN.md)
 
-一个用于初始化 **双 Coding Agents 协作工作流** 的跨平台项目母板。
+一个用于安装 **双 Coding Agents 协作工作流** 的跨平台工具。
 
-用户担任 Product Owner / 项目经理，Codex 担任 Planner / Reviewer / Git Finalizer，Claude Code 担任 Implementer / Fixer。初始化器会生成一套可版本化、可恢复、可复现的文件型工作流，用于项目 brainstorm、长期记忆、任务交接、代码实现、代码审查、Git checkpoint 和 Change Request。
+用户担任 Product Owner / 项目经理，Codex 担任 Planner / Reviewer / Git Finalizer，Claude Code 担任 Implementer / Fixer。工具会生成一套可版本化、可恢复、可复现的文件型工作流，用于项目 brainstorm、长期记忆、任务交接、代码实现、代码审查、Git checkpoint 和 Change Request。
+
+它支持两个模式：
+
+| 模式 | 适用场景 | 结果 |
+|---|---|---|
+| Initialize New Project | 用户还没有建立项目 | 生成标准双 Agent 工作流文件 |
+| Adopt Existing Project | 用户已经有一个建设中的代码项目 | 安装工作流、保留已有上下文、生成 Codex 接入审计文件，并准备进入双 Agent 开发 |
 
 ## 图示概览
 
@@ -28,6 +35,8 @@ AI Coding Agent 很强，但在真实长期项目中经常出现这些问题：
 - 用户需要反复写很长的提示词。
 
 这个项目把这些不稳定因素沉淀成仓库内的标准工作流文件。
+
+对于已经存在的项目，它还会建立接入层，让 Codex 先读取当前代码、与用户 brainstorm、补齐缺失的规划文档，然后再把实现任务交给 Claude Code。
 
 ## 角色分工
 
@@ -103,20 +112,25 @@ User → Codex
 | `docs/agent/11_AGENT_STATE.md` | 当前任务、Phase、Owner、Git 状态、恢复入口 |
 | `docs/agent/12_AGENT_BOARD.md` | 当前一轮 Agent 之间的短期留言板 |
 | `docs/agent/13_CHANGE_CONTROL.md` | 新 idea、架构变更、workflow/meta 变更的处理协议 |
+| `docs/agent/14_PROJECT_AUDIT.md` | 已有项目接入审计、技术栈推断、文件树、保留上下文 |
+| `docs/agent/15_ADOPTION_PLAN.md` | 将已有项目接入双 Agent 工作流的分阶段计划 |
+| `docs/agent/16_CODEX_ADOPTION_PROMPT.md` | 可直接交给 Codex 的接入审计和文档补全提示词 |
 
 ## 安装与使用
+
+### 模式 1：Initialize New Project
 
 ### macOS / Linux
 
 ```bash
-python3 init-agent-project.py /path/to/your/project
+python3 dual-agents-workflow.py /path/to/your/project
 ```
 
 或：
 
 ```bash
-chmod +x init-agent-project.sh
-./init-agent-project.sh /path/to/your/project
+chmod +x dual-agents-workflow.sh
+./dual-agents-workflow.sh /path/to/your/project
 ```
 
 ### Windows PowerShell
@@ -124,16 +138,32 @@ chmod +x init-agent-project.sh
 示例统一使用正斜杠，避免反斜杠转义导致显示或复制错误：
 
 ```powershell
-py -3 .\init-agent-project.py C:/path/to/your/project
+py -3 .\dual-agents-workflow.py C:/path/to/your/project
 ```
 
 或：
 
 ```powershell
-.\init-agent-project.ps1 C:/path/to/your/project
+.\dual-agents-workflow.ps1 C:/path/to/your/project
 ```
 
 Windows 用户建议尽量在 **Git Bash** 中执行 Git 提交操作，以确保生成的 pre-commit hook 行为一致。
+
+### 模式 2：Adopt Existing Project
+
+当项目已经存在，并且可能已经有代码、README、Claude Code 记录或不完整计划时，使用该模式：
+
+```bash
+python3 dual-agents-workflow.py /path/to/existing/project --adopt-existing --no-git-commit
+```
+
+接入模式会保持保守：
+
+- 不修改业务代码；
+- 默认不覆盖已有 `README.md`；
+- 如果已有 `CLAUDE.md`、`AGENTS.md`、`README.md`，会复制到 `docs/agent/adoption/existing_files/`；
+- 生成 `14_PROJECT_AUDIT.md`、`15_ADOPTION_PLAN.md`、`16_CODEX_ADOPTION_PROMPT.md`；
+- 将 workflow 状态设置为 Codex 先审计、补文档、规划，然后 Claude Code 才能开始实现。
 
 ## 初始化后第一步
 
@@ -143,12 +173,24 @@ Windows 用户建议尽量在 **Git Bash** 中执行 Git 提交操作，以确�
 请先不要修改业务代码。请阅读 AGENTS.md、docs/agent/11_AGENT_STATE.md、docs/agent/12_AGENT_BOARD.md 和 docs/agent/13_CHANGE_CONTROL.md，然后与我进行项目 brainstorm，补全项目愿景、当前状态、Locked Requirements、Roadmap，并准备第一份 Implementation Brief。
 ```
 
+## 接入已有项目后第一步
+
+把下面这段发给 Codex：
+
+```text
+请先不要修改业务代码。请读取 AGENTS.md、CLAUDE.md、docs/agent/11_AGENT_STATE.md、docs/agent/12_AGENT_BOARD.md、docs/agent/13_CHANGE_CONTROL.md、docs/agent/14_PROJECT_AUDIT.md 和 docs/agent/15_ADOPTION_PLAN.md。
+
+然后请审计当前已有代码库，包括目录结构、配置、README、测试、已有 CLAUDE.md 备份、Git 状态和最近提交。请与我进行项目 brainstorm，补全项目愿景、当前状态、Locked Requirements、Roadmap、Decision Log、Progress，并准备第一份 Implementation Brief。
+
+在完成 adoption audit 和文档补全之前，不要修改业务代码，不要让 Claude Code 开始 implementation。
+```
+
 ## 开发架构
 
 模板文件不是硬编码在巨大的 Python 字符串中，而是真实文件：
 
 ```text
-src/dual_agent_initializer/templates/
+src/dual_agents_workflow/templates/
 ```
 
 这样贡献者可以直接编辑 Markdown / Shell / PowerShell / Python 文件，获得语法高亮、预览和清晰 diff。
@@ -162,7 +204,7 @@ python scripts/compile_release.py
 输出：
 
 ```text
-dist/init-agent-project.py
+dist/dual-agents-workflow.py
 ```
 
 ## 测试
@@ -177,6 +219,7 @@ python scripts/compile_release.py
 ## 适用场景
 
 - 长期软件项目；
+- 已经 vibe coding 一段时间、但需要重新结构化的项目；
 - 个人独立开发；
 - AI 辅助开发；
 - 多 Agent 协作；

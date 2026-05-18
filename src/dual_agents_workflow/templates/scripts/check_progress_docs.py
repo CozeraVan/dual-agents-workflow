@@ -21,7 +21,7 @@ PROGRESS_DOC_PATTERNS = re.compile(
 PROTECTED_WORKFLOW_PATTERNS = re.compile(
     r"^(AGENTS\.md|CLAUDE\.md|docs/agent/02_LOCKED_REQUIREMENTS\.md|docs/agent/13_CHANGE_CONTROL\.md|"
     r"\.claude/skills/|\.agents/skills/|\.claude/hooks/|scripts/check_progress_docs\.py|scripts/git_finalize_check\.py|scripts/agent_status\.py|"
-    r"init-agent-project.*|init_agent_project.*)"
+    r"dual-agents-workflow.*|dual_agents_workflow.*|init-agent-project.*|init_agent_project.*)"
 )
 
 

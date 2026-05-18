@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 try {
-    py -3 "$ScriptDir\init-agent-project.py" @args
+    py -3 "$ScriptDir\dual-agents-workflow.py" @args
 } catch {
-    python "$ScriptDir\init-agent-project.py" @args
+    python "$ScriptDir\dual-agents-workflow.py" @args
 }

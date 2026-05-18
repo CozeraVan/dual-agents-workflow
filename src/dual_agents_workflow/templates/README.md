@@ -4,7 +4,7 @@ TODO: Describe this project.
 
 ## Agent Workflow
 
-This repository was initialized with Dual Agent Project Initializer.
+This repository was initialized with Dual Agents Workflow.
 
 
 This project uses a dual-agent workflow:
