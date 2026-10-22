@@ -2,9 +2,16 @@
 
 [中文说明](README.zh-CN.md) | [Architecture](docs/ARCHITECTURE.md) | [Contributing](CONTRIBUTING.md)
 
+![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
+![Agents](https://img.shields.io/badge/agents-Codex%20%2B%20Claude%20Code-blueviolet)
+
 A cross-platform workflow installer for **dual coding-agent projects**.
 
 The user acts as the Product Owner, Codex acts as Planner / Reviewer / Git Finalizer, and Claude Code acts as the Implementer / Fixer. The tool creates a versioned, file-based workflow for brainstorming, long-term memory, task handoff, implementation, review, Git checkpoints, and change control.
+
+> **Which repo should I use?** This is the actively developed version. It covers both brand-new projects and adopting existing codebases. If you only need the minimal init-only scaffold, see [dual-agent-project-initializer](https://github.com/CozeraVan/dual-agent-project-initializer).
 
 It supports two modes:
 
@@ -243,4 +250,4 @@ python scripts/compile_release.py
 
 ## License
 
-MIT
+[MIT](LICENSE)
